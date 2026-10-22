@@ -1,0 +1,6 @@
+{
+  "name": "Devil's Payline",
+  "description": "Survive the demonic slot dungeon, modify circuit boards, and out-cheat the House.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
