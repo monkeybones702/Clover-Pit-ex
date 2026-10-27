@@ -36,6 +36,7 @@ fun GameScreen() {
     }
 
     var microchipActive by remember { mutableStateOf(false) }
+    var isWinningCombination by remember { mutableStateOf(false) }
     val coroutineScope = rememberCoroutineScope()
 
     // Main Dark/Grim Pipeline Theme Colors
@@ -104,9 +105,9 @@ fun GameScreen() {
             horizontalArrangement = Arrangement.SpaceEvenly,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            ReelBox(symbol = reel1, isSpinning = isSpinning)
-            ReelBox(symbol = reel2, isSpinning = isSpinning)
-            ReelBox(symbol = reel3, isSpinning = isSpinning)
+            ReelBox(symbol = reel1, isSpinning = isSpinning, isWinner = isWinningCombination)
+            ReelBox(symbol = reel2, isSpinning = isSpinning, isWinner = isWinningCombination)
+            ReelBox(symbol = reel3, isSpinning = isSpinning, isWinner = isWinningCombination)
         }
 
         // PLAYER STATS
@@ -147,6 +148,7 @@ fun GameScreen() {
             onClick = {
                 if (!isSpinning && playerHp > 0 && bossHp > 0) {
                     isSpinning = true
+                    isWinningCombination = false
                     coroutineScope.launch {
                         // Simulate Reel Spin Animation Delays
                         repeat(10) {
@@ -172,6 +174,7 @@ fun GameScreen() {
 
                         // 3-of-a-kind Triple Jackpot Bonus
                         if (reel1 == reel2 && reel2 == reel3) {
+                            isWinningCombination = true
                             totalDamage *= 2
                             cloverIntercomText = "CLOVER: 'TRIPLE MATCH! Don't get used to winning, rodent!'"
                         } else {
